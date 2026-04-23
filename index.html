@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta: Supervivencia Estudiantil</title>
+    <!-- CDN Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <!-- Estilos personalizados (cargados después de Bulma para poder sobreescribir) -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js para visualización -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <!-- START NAVBAR -->
+    <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#panelInsercion">
+                <span class="icon-text">
+                    <span class="icon">🧠</span>
+                    <span class="has-text-weight-bold">Supervivencia Estudiantil</span>
+                </span>
+            </a>
+    
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarGuardian">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    
+        <div id="navbarGuardian" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="#panelMetricas" data-requires-auth="true">📊 Métricas</a>
+                <a class="navbar-item" href="#panelGraficos" data-requires-auth="true">📈 Gráficos</a>
+                <a class="navbar-item" href="#panelReporte" data-requires-auth="true">📋 Reporte</a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="control">
+                        <button id="darkModeToggle" class="button is-dark">
+                            <span class="icon">
+                                <i class="fas fa-moon"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+    <main class="container section">
+        <section id="panelInsercion" class="box">
+            <h2 class="title is-4">📊 Encuesta: Hábitos de vida y supervivencia estudiantil</h2>
+            <p class="subtitle is-6">¡Hola! Responde con honestidad para ver cómo sobrevivimos juntos a la vida universitaria.</p>
+            <form id="formEncuesta">
+                <!-- Pregunta 1 -->
+                <div class="field">
+                    <label class="label" for="pregunta1">1. Cuando intentas dormir “temprano”, ¿cuántas horas terminas durmiendo realmente?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta1" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Menos de 5 horas (mañana me arrepiento fijo, pero un capítulo/video más).</option>
+                                <option value="B">B) Entre 5 y 6 horas (funciono a punta de café y fe).</option>
+                                <option value="C">C) Entre 7 y 8 horas (equilibrio perfecto, soy un ser funcional).</option>
+                                <option value="D">D) Más de 8 horas (el mundo puede arder, pero mi descanso es sagrado).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 2 -->
+                <div class="field">
+                    <label class="label" for="pregunta2">2. En promedio, ¿cuánto tiempo pasas al día en el celular?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta2" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Menos de 2 horas (tengo autocontrol nivel monje tibetano).</option>
+                                <option value="B">B) Entre 2 y 4 horas (lo normal para sobrevivir al día).</option>
+                                <option value="C">C) Entre 5 y 7 horas (la mitad es procrastinación pura).</option>
+                                <option value="D">D) Más de 7 horas (básicamente el celular es una extensión de mi brazo).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 3 -->
+                <div class="field">
+                    <label class="label" for="pregunta3">3. Siendo honestos, ¿para qué usas principalmente el celular?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta3" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Redes sociales (scroll infinito hasta que me duelen los dedos).</option>
+                                <option value="B">B) Estudio o tareas (o al menos eso es lo que le digo a mi familia).</option>
+                                <option value="C">C) Entretenimiento (juegos, series, evadir la realidad).</option>
+                                <option value="D">D) Trabajo y productividad (usando el calendario para ver cuándo me gradúo).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 4 -->
+                <div class="field">
+                    <label class="label" for="pregunta4">4. ¿Con qué frecuencia sientes estrés en tu día a día?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta4" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Casi nunca (vivo en un estado zen inquebrantable).</option>
+                                <option value="B">B) Algunas veces (lo normal cuando se juntan los parciales y los proyectos).</option>
+                                <option value="C">C) Frecuentemente (mi estado natural es la preocupación).</option>
+                                <option value="D">D) Casi siempre (desayuno, almuerzo y ceno estrés).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 5 -->
+                <div class="field">
+                    <label class="label" for="pregunta5">5. Fuera de clase, ¿cuánto tiempo extra dedicas a estudiar?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta5" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Casi nada (confío en mi memoria a corto plazo 5 minutos antes).</option>
+                                <option value="B">B) 1–2 horas (lo mínimo éticamente aceptable).</option>
+                                <option value="C">C) 3–4 horas (juicioso, aplicando los procedimientos paso a paso).</option>
+                                <option value="D">D) Más de 4 horas (ya no tengo vida social, solo apuntes).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 6 -->
+                <div class="field">
+                    <label class="label" for="pregunta6">6. ¿Cuál es tu método de estudio más común para entender temas difíciles?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta6" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Leer y releer apuntes hasta que tengan algún sentido.</option>
+                                <option value="B">B) Maratón de videos explicativos en YouTube (mi verdadero profesor).</option>
+                                <option value="C">C) Hacer resúmenes impecables con resaltadores de todos los colores.</option>
+                                <option value="D">D) Resolver ejercicios prácticos (chocarme contra el error hasta entender).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 7 -->
+                <div class="field">
+                    <label class="label" for="pregunta7">7. ¿Qué tanto influye el celular en tu concentración al estudiar?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta7" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Nada (lo pongo en modo avión o lo escondo).</option>
+                                <option value="B">B) Poco (solo lo miro si vibra).</option>
+                                <option value="C">C) Bastante (entro a buscar un dato y termino viendo memes 20 minutos).</option>
+                                <option value="D">D) Mucho (estudio 5 minutos y me recompenso con media hora de redes).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 8 -->
+                <div class="field">
+                    <label class="label" for="pregunta8">8. Cuando estás intentando estudiar, ¿cada cuánto revisas el celular?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta8" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Casi nunca (solo al terminar todo lo que tenía planeado).</option>
+                                <option value="B">B) Cada vez que termino un tema o un ejercicio difícil.</option>
+                                <option value="C">C) Cada vez que me bloqueo o me aburro (muy seguido).</option>
+                                <option value="D">D) Cada pocos minutos (tengo el reflejo condicionado de prender la pantalla).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 9 -->
+                <div class="field">
+                    <label class="label" for="pregunta9">9. ¿Cómo percibes tu rendimiento académico actualmente?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta9" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Bajo (estoy en modo "salvar el semestre como sea").</option>
+                                <option value="B">B) Regular (ahí voy, sufriendo pero sobreviviendo).</option>
+                                <option value="C">C) Bueno (tengo el control de la situación).</option>
+                                <option value="D">D) Excelente (soy la persona a la que le piden copia).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pregunta 10 -->
+                <div class="field">
+                    <label class="label" for="pregunta10">10. ¿Qué factor sientes que afecta más tu rendimiento académico?</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select id="pregunta10" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="A">A) Falta de tiempo (el día debería tener 30 horas).</option>
+                                <option value="B">B) Distracciones digitales (el celular es mi criptonita).</option>
+                                <option value="C">C) Estrés y agotamiento mental (el cerebro ya no da más).</option>
+                                <option value="D">D) Falta de motivación (procrastinación nivel experto).</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botón de envío -->
+                <div class="field mt-5">
+                    <div class="control">
+                        <button id="btnEnviarEncuesta" class="button is-primary is-fullwidth is-medium" type="submit">Enviar mis miserias (digo, respuestas)</button>
+                    </div>
+                </div>
+            </form>
+            <p id="statusMensaje" class="help is-info mt-3 has-text-weight-medium"></p>
+        </section>
+
+        <section id="panelMetricas" class="box is-hidden">
+            <h2 class="subtitle has-text-weight-bold">📊 Métricas Generales</h2>
+            <nav class="panel">
+                <p class="panel-heading">Métricas Generales</p>
+                <a class="panel-block">
+                    <span class="panel-icon"><i class="fas fa-poll" aria-hidden="true"></i></span>
+                    Total de Encuestas
+                    <strong id="metTotalEncuestas" class="ml-auto">0</strong>
+                </a>
+                <a class="panel-block">
+                    <span class="panel-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+                    Nivel de Estrés Promedio (P4)
+                    <strong id="metEstresPromedio" class="ml-auto">0 / 4</strong>
+                </a>
+            </nav>
+        </section>
+
+        <section id="panelGraficos" class="box is-hidden">
+            <h2 class="subtitle has-text-weight-bold">📈 Visualización de Datos</h2>
+            <div class="columns">
+                <div class="column">
+                    <div class="box">
+                        <canvas id="chartUsoCelular"></canvas>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        <canvas id="chartNivelEstres"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="box mt-4">
+                <canvas id="chartUsoVsConcentracion"></canvas>
+            </div>
+        </section>
+
+        <section id="panelReporte" class="box is-hidden">
+            <h2 class="subtitle has-text-weight-bold">📋 Reporte de Respuestas</h2>
+            <nav class="panel">
+                <p class="panel-heading">Reporte de Respuestas</p>
+                <div id="listaEncuestas">
+                    <!-- Las respuestas individuales se insertarán aquí -->
+                </div>
+            </nav>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Acceso de Administrador</p>
+                <button class="delete" aria-label="close" id="closeLoginModal"></button>
+            </header>
+            <section class="modal-card-body">
+                <p>Para ver las métricas, gráficos y reportes, por favor ingresa la contraseña.</p>
+                <div class="field mt-4">
+                    <label class="label" for="loginPassword">Contraseña</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="password" id="loginPassword" placeholder="********">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                    <p id="loginError" class="help is-danger is-hidden">Contraseña incorrecta.</p>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="loginButton">Ingresar</button>
+                <button class="button" id="cancelLoginButton">Cancelar</button>
+            </footer>
+        </div>
+    </div>
+    <!-- Justo antes de tu script main.js -->
+    <!-- <script src="config.js"></script> --> <!-- Desactivado para usar las claves locales hardcodeadas en main.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="main.js"></script>
+    <!-- Script para el menú hamburguesa de Bulma en móviles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
