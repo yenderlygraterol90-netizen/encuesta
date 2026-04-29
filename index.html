@@ -34,9 +34,9 @@
     
         <div id="navbarGuardian" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="#panelMetricas" data-requires-auth="true">📊 Métricas</a>
-                <a class="navbar-item" href="#panelGraficos" data-requires-auth="true">📈 Gráficos</a>
-                <a class="navbar-item" href="#panelReporte" data-requires-auth="true">📋 Reporte</a>
+                <a class="navbar-item" href="#panelMetricas">📊 Métricas</a>
+                <a class="navbar-item" href="#panelGraficos">📈 Gráficos</a>
+                <a class="navbar-item" href="#panelReporte">📋 Reporte</a>
             </div>
 
             <div class="navbar-end">
@@ -266,33 +266,6 @@
         </section>
     </main>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Acceso de Administrador</p>
-                <button class="delete" aria-label="close" id="closeLoginModal"></button>
-            </header>
-            <section class="modal-card-body">
-                <p>Para ver las métricas, gráficos y reportes, por favor ingresa la contraseña.</p>
-                <div class="field mt-4">
-                    <label class="label" for="loginPassword">Contraseña</label>
-                    <div class="control has-icons-left">
-                        <input class="input" type="password" id="loginPassword" placeholder="********">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </div>
-                    <p id="loginError" class="help is-danger is-hidden">Contraseña incorrecta.</p>
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" id="loginButton">Ingresar</button>
-                <button class="button" id="cancelLoginButton">Cancelar</button>
-            </footer>
-        </div>
-    </div>
     <!-- Justo antes de tu script main.js -->
     <!-- <script src="config.js"></script> --> <!-- Desactivado para usar las claves locales hardcodeadas en main.js -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

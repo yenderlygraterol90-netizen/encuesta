@@ -5,13 +5,6 @@ const SUPABASE_ANON_KEY = 'sb_publishable_5bteT5sOHPjxcvb7GOEbaQ_PE8dn_M9';
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// --- Autenticación y Estado ---
-// ¡ADVERTENCIA! Esta es una contraseña simple para un login básico.
-// No es seguro para un entorno de producción.
-const ADMIN_PASSWORD = 'admin';
-let isAdminLoggedIn = false;
-let pendingNavigationTarget = null; // Guarda el panel al que se intentó acceder
-
 // Variables Globales
 let respuestasGlobales = []; // Almacena todas las respuestas de la encuesta
 let analisisGlobal = {}; // Almacena los resultados del análisis para no recalcular
@@ -23,12 +16,6 @@ let chartUsoVsConcentracionInstancia = null;
 const statusMensaje = document.getElementById("statusMensaje");
 const formEncuesta = document.getElementById('formEncuesta');
 const btnEnviarEncuesta = document.getElementById('btnEnviarEncuesta');
-const loginModal = document.getElementById('loginModal');
-const closeLoginModalBtn = document.getElementById('closeLoginModal');
-const cancelLoginBtn = document.getElementById('cancelLoginButton');
-const loginBtn = document.getElementById('loginButton');
-const loginPasswordInput = document.getElementById('loginPassword');
-const loginError = document.getElementById('loginError');
 
 // --- Lógica Principal (Controladores de Eventos) ---
 
@@ -193,36 +180,6 @@ function analizarRespuestas(respuestas) {
         metricas,
         datosParaGraficos: { distribucionUsoCelular, distribucionEstres, usoVsConcentracion }
     };
-}
-
-// --- Lógica de Autenticación y Modal ---
-function openLoginModal() {
-    loginError.classList.add('is-hidden');
-    loginPasswordInput.value = '';
-    loginModal.classList.add('is-active');
-    loginPasswordInput.focus();
-}
-
-function closeLoginModal() {
-    loginModal.classList.remove('is-active');
-}
-
-function handleLoginAttempt() {
-    if (loginPasswordInput.value === ADMIN_PASSWORD) {
-        isAdminLoggedIn = true;
-        closeLoginModal();
-        // Si había una navegación pendiente, completarla.
-        if (pendingNavigationTarget) {
-            showPanel(pendingNavigationTarget);
-            pendingNavigationTarget = null;
-        } else {
-            // Por defecto, ir a Métricas tras el login.
-            showPanel('panelMetricas');
-        }
-    } else {
-        loginError.classList.remove('is-hidden');
-        loginPasswordInput.focus();
-    }
 }
 
 // --- Funciones de UI e Inserción en DOM ---
@@ -475,16 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Aplicar modo oscuro si estaba guardado en localStorage.
     const savedMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedMode);
-
-    // Listeners para el modal de login
-    loginBtn.addEventListener('click', handleLoginAttempt);
-    closeLoginModalBtn.addEventListener('click', closeLoginModal);
-    cancelLoginBtn.addEventListener('click', closeLoginModal);
-    loginPasswordInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
-            handleLoginAttempt();
-        }
-    });
 
     cargarYRenderizarDatos();
 });

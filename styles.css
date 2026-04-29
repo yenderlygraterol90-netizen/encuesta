@@ -72,16 +72,6 @@ html.dark-mode .panel-tabs a.is-active {
     color: #f5f5f5;
 }
 
-html.dark-mode .modal-card-head,
-html.dark-mode .modal-card-foot {
-    background-color: #1a1a1a;
-    border-color: #4a4a4a;
-}
-
-html.dark-mode .modal-card-body {
-    background-color: #2d2d2d;
-}
-
 .button.is-primary {
     background-color: #485fc7;
     border-color: transparent;
